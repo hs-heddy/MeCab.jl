@@ -19,7 +19,8 @@ mutable struct Mecab
   ptr::Ptr{Nothing}
 
   function Mecab(;option::String = "")
-    argv = vcat("mecab", split(option))
+    #argv = vcat("mecab", split(option))
+    argv = ["mecab"]
     @show argv
     ptr = ccall(
       (:mecab_new, libmecab),
