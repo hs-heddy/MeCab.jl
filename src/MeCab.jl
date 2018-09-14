@@ -9,7 +9,7 @@ else
     error("MeCab not properly installed. Please run Pkg.build(\"MeCab\")")
 end
 
-@assert isdefined(:libmecab)
+#@assert isdefined(:libmecab)
 
 import Base: parse
 export Mecab, MecabNode, sparse_tostr, nbest_sparse_tostr, mecab_sparse_tonode,
