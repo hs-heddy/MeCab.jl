@@ -16,7 +16,7 @@ end
 
 mecab = library_dependency("libmecab", validate=validate)
 
-const version = "0.996"
+version = "0.996"
 
 provides(Sources,
          URI("https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7cENtOXlicTFaRUE"),
@@ -43,7 +43,7 @@ provides(SimpleBuild,
 # mecab-ipadic install
 
 function install_ipadic()
-    const ipadic_version = "2.7.0-20070801"
+    ipadic_version = "2.7.0-20070801"
     mecabconfig = joinpath(BinDeps.depsdir(mecab), "usr", "bin", "mecab-config")
 
     # download
