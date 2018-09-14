@@ -146,7 +146,7 @@ function nbest_init(mecab::Mecab, input::AbstractString)
 end
 
 function nbest_next_tostr(mecab::Mecab)
-  result = ccall((:mecab_nbest_next_tostr,libmecab), Ptr{@compat UInt8}, (Ptr{NothingNothing},), mecab.ptr)
+  result = ccall((:mecab_nbest_next_tostr,libmecab), Ptr{@compat UInt8}, (Ptr{Nothing},), mecab.ptr)
   local ret::String
   ret = chomp(unsafe_string(result))
   ret
