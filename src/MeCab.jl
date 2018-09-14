@@ -64,7 +64,7 @@ mutable struct MecabRawNode
   cost::Clong
 end
 
-type MecabNode
+mutable struct MecabNode
   surface::String
   feature::String
 end
