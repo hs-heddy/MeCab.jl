@@ -18,9 +18,9 @@ export Mecab, MecabNode, sparse_tostr, nbest_sparse_tostr, mecab_sparse_tonode,
 mutable struct Mecab
   ptr::Ptr{Nothing}
 
-  function Mecab(option::String = "")
+  function Mecab(;option::String = "")
     argv = vcat("mecab", split(option))
-
+    @show argv
     ptr = ccall(
       (:mecab_new, libmecab),
       Ptr{Nothing},
