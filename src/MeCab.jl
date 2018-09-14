@@ -16,14 +16,14 @@ export Mecab, MecabNode, sparse_tostr, nbest_sparse_tostr, mecab_sparse_tonode,
        nbest_init, nbest_next_tostr, parse_tonode, parse_surface, parse_surface2, parse_nbest
 
 mutable struct Mecab
-  ptr::Ptr{Void}
+  ptr::Ptr{Nothing}
 
   function Mecab(option::String = "")
     argv = vcat("mecab", split(option))
 
     ptr = ccall(
       (:mecab_new, libmecab),
-      Ptr{Void},
+      Ptr{Nothing},
       (Cint, Ptr{Ptr{@compat UInt8}}),
       length(argv), argv
     )
@@ -33,7 +33,7 @@ mutable struct Mecab
     end
     smart_p = new(ptr)
 
-    finalizer(smart_p, obj -> ccall((:mecab_destroy, libmecab),  Void, (Ptr{Void},), obj.ptr))
+    finalizer(smart_p, obj -> ccall((:mecab_destroy, libmecab),  Nothing, (Ptr{Nothing},), obj.ptr))
 
     smart_p
   end
@@ -44,8 +44,8 @@ mutable struct MecabRawNode
   next::Ptr{MecabRawNode}
   enext::Ptr{MecabRawNode}
   bnext::Ptr{MecabRawNode}
-  rpath::Ptr{Void}
-  lpath::Ptr{Void}
+  rpath::Ptr{Nothing}
+  lpath::Ptr{Nothing}
   surface::Ptr{@compat UInt8}
   feature::Ptr{@compat UInt8}
   id::Cint
@@ -142,11 +142,11 @@ function mecab_sparse_tonode(mecab::Mecab, input::AbstractString)
 end
 
 function nbest_init(mecab::Mecab, input::AbstractString)
-  ccall((:mecab_nbest_init, libmecab), Void, (Ptr{Void}, Ptr{@compat UInt8}), mecab.ptr, string(input))
+  ccall((:mecab_nbest_init, libmecab), Nothing, (Ptr{Nothing}, Ptr{@compat UInt8}), mecab.ptr, string(input))
 end
 
 function nbest_next_tostr(mecab::Mecab)
-  result = ccall((:mecab_nbest_next_tostr,libmecab), Ptr{@compat UInt8}, (Ptr{Void},), mecab.ptr)
+  result = ccall((:mecab_nbest_next_tostr,libmecab), Ptr{@compat UInt8}, (Ptr{NothingNothing},), mecab.ptr)
   local ret::String
   ret = chomp(unsafe_string(result))
   ret
