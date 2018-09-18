@@ -18,12 +18,12 @@ export Mecab, MecabNode, sparse_tostr, nbest_sparse_tostr, mecab_sparse_tonode,
 mutable struct Mecab
   ptr::Ptr{Nothing}
 
-  function Mecab(;option::String = "")
-    #argv = vcat("mecab", split(option))
-    argv = ["mecab"]
+  function Mecab(option::String = "")
+    argv = vcat("mecab", split(option))
+    #argv = ["mecab"]
     @show argv
     ptr = ccall(
-      ("mecab_new", libmecab),
+      (:mecab_new, libmecab),
       Ptr{Nothing},
       (Cint, Ptr{Ptr{@compat UInt8}}),
       length(argv), argv
@@ -34,7 +34,7 @@ mutable struct Mecab
     end
     smart_p = new(ptr)
 
-    finalizer(smart_p, obj -> ccall(("mecab_destroy", libmecab),  Nothing, (Ptr{Nothing},), obj.ptr))
+    finalizer(smart_p, obj -> ccall((:mecab_destroy, libmecab),  Nothing, (Ptr{Nothing},), obj.ptr))
 
     smart_p
   end
@@ -113,7 +113,7 @@ end
 
 function sparse_tostr(mecab::Mecab, input::AbstractString)
   result = ccall(
-      ("mecab_sparse_tostr", libmecab), Ptr{@compat UInt8},
+      (:mecab_sparse_tostr, libmecab), Ptr{@compat UInt8},
       (Ptr{@compat UInt8}, Ptr{@compat UInt8},),
       mecab.ptr, string(input)
     )
@@ -124,7 +124,7 @@ end
 
 function nbest_sparse_tostr(mecab::Mecab, n::Int64, input::AbstractString)
   result = ccall(
-      ("mecab_nbest_sparse_tostr", libmecab), Ptr{@compat UInt8},
+      (:mecab_nbest_sparse_tostr, libmecab), Ptr{@compat UInt8},
       (Ptr{@compat UInt8}, Int32, Ptr{@compat UInt8},),
       mecab.ptr, n, string(input)
     )
@@ -135,7 +135,7 @@ end
 
 function mecab_sparse_tonode(mecab::Mecab, input::AbstractString)
   node = ccall(
-      ("mecab_sparse_tonode", libmecab), Ptr{MecabRawNode},
+      (:mecab_sparse_tonode, libmecab), Ptr{MecabRawNode},
       (Ptr{@compat UInt8}, Ptr{@compat UInt8},),
       mecab.ptr, string(input)
     )
@@ -143,11 +143,11 @@ function mecab_sparse_tonode(mecab::Mecab, input::AbstractString)
 end
 
 function nbest_init(mecab::Mecab, input::AbstractString)
-  ccall(("mecab_nbest_init", libmecab), Nothing, (Ptr{Nothing}, Ptr{@compat UInt8}), mecab.ptr, string(input))
+  ccall((:mecab_nbest_init, libmecab), Nothing, (Ptr{Nothing}, Ptr{@compat UInt8}), mecab.ptr, string(input))
 end
 
 function nbest_next_tostr(mecab::Mecab)
-  result = ccall(("mecab_nbest_next_tostr",libmecab), Ptr{@compat UInt8}, (Ptr{Nothing},), mecab.ptr)
+  result = ccall((:mecab_nbest_next_tostr,libmecab), Ptr{@compat UInt8}, (Ptr{Nothing},), mecab.ptr)
   local ret::String
   ret = chomp(unsafe_string(result))
   ret
