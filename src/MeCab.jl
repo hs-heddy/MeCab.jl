@@ -87,7 +87,7 @@ function create_surface(raw::MecabRawNode)
 end
 
 function create_nodes(raw::Ptr{MecabRawNode})
-  ret = Array(MecabNode, 0)
+  ret = Array{MecabNode}(undef, 0)
   while raw != C_NULL
     _raw = unsafe_load(raw)
     if _raw.length != 0
