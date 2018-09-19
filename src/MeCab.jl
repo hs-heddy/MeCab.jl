@@ -77,9 +77,16 @@ function create_node(raw::MecabRawNode)
 end
 
 function create_surface(raw::MecabRawNode)
-  _surface = unsafe_string(raw.surface)
+  start_idx = convert(Int64,raw.surface)
+  _nextraw = unsafe_load(raw.next)
+  next_idx = convert(Int64,_nextraw.surface)
+
   local surface::String
-  surface = _surface
+  surface = try
+      unsafe_string(raw.surface,next_idx - start_idx)
+    catch
+      unsafe_string(raw.surface)
+    end
 end
 
 function create_nodes(raw::Ptr{MecabRawNode})
