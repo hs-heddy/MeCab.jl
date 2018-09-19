@@ -1,5 +1,6 @@
 module MeCab
 using Compat
+using Libdl
 
 # Load dependencies
 deps = joinpath(dirname(@__FILE__), "..", "deps", "deps.jl")
