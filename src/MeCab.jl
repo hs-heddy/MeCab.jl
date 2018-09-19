@@ -31,8 +31,9 @@ mutable struct Mecab
       error("failed to create tagger")
     end
     smart_p = new(ptr)
-
-    finalizer(smart_p, obj -> ccall((:mecab_destroy, libmecab),  Nothing, (Ptr{Nothing},), obj.ptr))
+    
+    finalizer(obj -> ccall((:mecab_destroy, libmecab),  Nothing, (Ptr{Nothing},), obj.ptr), smart_p)
+    #finalizer(smart_p, obj -> ccall((:mecab_destroy, libmecab),  Nothing, (Ptr{Nothing},), obj.ptr))
 
     smart_p
   end
