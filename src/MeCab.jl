@@ -10,7 +10,7 @@ else
     error("MeCab not properly installed. Please run Pkg.build(\"MeCab\")")
 end
 
-#@assert isdefined(:libmecab)
+@assert isdefined(Any,libmecab)
 
 import Base: parse
 export Mecab, MecabNode, sparse_tostr, nbest_sparse_tostr, mecab_sparse_tonode,
@@ -34,7 +34,6 @@ mutable struct Mecab
     smart_p = new(ptr)
     
     finalizer(obj -> ccall((:mecab_destroy, libmecab),  Nothing, (Ptr{Nothing},), obj.ptr), smart_p)
-    #finalizer(smart_p, obj -> ccall((:mecab_destroy, libmecab),  Nothing, (Ptr{Nothing},), obj.ptr))
 
     smart_p
   end
