@@ -24,7 +24,7 @@ mutable struct Mecab
     ptr = ccall(
       (:mecab_new, libmecab),
       Ptr{Nothing},
-      (Cint, Ptr{Ptr{@compat UInt8}}),
+      (Cint, Ptr{Ptr{UInt8}}),
       length(argv), argv
     )
 
@@ -46,8 +46,8 @@ mutable struct MecabRawNode
   bnext::Ptr{MecabRawNode}
   rpath::Ptr{Nothing}
   lpath::Ptr{Nothing}
-  surface::Ptr{@compat UInt8}
-  feature::Ptr{@compat UInt8}
+  surface::Ptr{UInt8}
+  feature::Ptr{UInt8}
   id::Cint
   length::Cushort
   rlength::Cushort
@@ -115,8 +115,8 @@ end
 
 function sparse_tostr(mecab::Mecab, input::AbstractString)
   result = ccall(
-      (:mecab_sparse_tostr, libmecab), Ptr{@compat UInt8},
-      (Ptr{@compat UInt8}, Ptr{@compat UInt8},),
+      (:mecab_sparse_tostr, libmecab), Ptr{UInt8},
+      (Ptr{UInt8}, Ptr{UInt8},),
       mecab.ptr, string(input)
     )
   local ret::String
@@ -126,8 +126,8 @@ end
 
 function nbest_sparse_tostr(mecab::Mecab, n::Int64, input::AbstractString)
   result = ccall(
-      (:mecab_nbest_sparse_tostr, libmecab), Ptr{@compat UInt8},
-      (Ptr{@compat UInt8}, Int32, Ptr{@compat UInt8},),
+      (:mecab_nbest_sparse_tostr, libmecab), Ptr{UInt8},
+      (Ptr{UInt8}, Int32, Ptr{UInt8},),
       mecab.ptr, n, string(input)
     )
   local ret::String
@@ -138,18 +138,18 @@ end
 function mecab_sparse_tonode(mecab::Mecab, input::AbstractString)
   node = ccall(
       (:mecab_sparse_tonode, libmecab), Ptr{MecabRawNode},
-      (Ptr{@compat UInt8}, Ptr{@compat UInt8},),
+      (Ptr{UInt8}, Ptr{UInt8},),
       mecab.ptr, string(input)
     )
   node
 end
 
 function nbest_init(mecab::Mecab, input::AbstractString)
-  ccall((:mecab_nbest_init, libmecab), Nothing, (Ptr{Nothing}, Ptr{@compat UInt8}), mecab.ptr, string(input))
+  ccall((:mecab_nbest_init, libmecab), Nothing, (Ptr{Nothing}, Ptr{UInt8}), mecab.ptr, string(input))
 end
 
 function nbest_next_tostr(mecab::Mecab)
-  result = ccall((:mecab_nbest_next_tostr,libmecab), Ptr{@compat UInt8}, (Ptr{Nothing},), mecab.ptr)
+  result = ccall((:mecab_nbest_next_tostr,libmecab), Ptr{UInt8}, (Ptr{Nothing},), mecab.ptr)
   local ret::String
   ret = chomp(unsafe_string(result))
   ret
