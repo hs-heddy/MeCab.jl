@@ -1,5 +1,5 @@
 module MeCab
-using Compat
+
 using Libdl
 
 # Load dependencies
