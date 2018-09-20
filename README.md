@@ -4,6 +4,15 @@
 
 Julia bindings for Japanese morphological analyzer [MeCab](http://mecab.googlecode.com/svn/trunk/mecab/doc/index.html)
 
+## Install
+
+I am not sure if the owner will merge my pull request. However, now, you can install this fork directly to enjoy using the package on Julia 0.7 and 1.0.
+In Julia REPL press ']' to enter package manager. Then print the following:
+
+```
+add https://github.com/snthot/MeCab.jl.git
+```
+
 ## Usage
 
 ```julia
@@ -67,6 +76,8 @@ julia> MeCab.libmecab
 ```
 
 ## Credits
+September 2018, modified for Julia 1.0 by snthot
+
 MeCab.jl is created by Michiaki Ariga
 
 [MeCab](http://mecab.googlecode.com/svn/trunk/mecab/doc/index.html) by Taku Kudo
