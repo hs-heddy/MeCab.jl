@@ -1,17 +1,16 @@
 # MeCab.jl
 
-[![Build Status](https://travis-ci.org/snthot/MeCab.jl.svg?branch=master)](https://travis-ci.org/snthot/MeCab.jl)
+[![Build Status](https://travis-ci.org/chezou/MeCab.jl.svg?branch=master)](https://travis-ci.org/chezou/MeCab.jl)
+[![Coverage Status](https://coveralls.io/repos/chezou/MeCab.jl/badge.svg?branch=master&service=github)](https://coveralls.io/github/chezou/MeCab.jl?branch=master)
+[![MeCab](http://pkg.julialang.org/badges/MeCab_0.3.svg)](http://pkg.julialang.org/?pkg=MeCab&ver=0.3)
+[![MeCab](http://pkg.julialang.org/badges/MeCab_0.4.svg)](http://pkg.julialang.org/?pkg=MeCab&ver=0.4)
+[![MeCab](http://pkg.julialang.org/badges/MeCab_0.7.svg)](http://pkg.julialang.org/?pkg=MeCab&ver=0.7)
+[![MeCab](http://pkg.julialang.org/badges/MeCab_1.0.svg)](http://pkg.julialang.org/?pkg=MeCab&ver=1.0)
+
+
 
 Julia bindings for Japanese morphological analyzer [MeCab](http://mecab.googlecode.com/svn/trunk/mecab/doc/index.html)
 
-## Install
-
-I am not sure if the owner will merge my pull request. However, now, you can install this fork directly to enjoy using the package on Julia 0.7 and 1.0.
-In Julia REPL press ']' to enter package manager. Then print the following:
-
-```
-add https://github.com/snthot/MeCab.jl.git
-```
 
 ## Usage
 
@@ -76,8 +75,6 @@ julia> MeCab.libmecab
 ```
 
 ## Credits
-September 2018, modified for Julia 1.0 by snthot
-
 MeCab.jl is created by Michiaki Ariga
 
 [MeCab](http://mecab.googlecode.com/svn/trunk/mecab/doc/index.html) by Taku Kudo
